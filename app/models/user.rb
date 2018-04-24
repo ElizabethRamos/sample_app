@@ -67,6 +67,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago #sends earlier than 2 hours from change password request
   end
 
+   # Defines a proto-feed.
+   # See "following users" for the full implementation.
+  def feed
+   Micropost.where("user_id = ?", id)
+  end 
+
     private
   # Convert email to  all lower-case
     def downcase_email
