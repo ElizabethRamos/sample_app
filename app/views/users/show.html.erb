@@ -17,8 +17,8 @@
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <% if current_user?(@user) || current_user.following?(@user) %>
-        <%= render @microposts %>
-      <%= will_paginate @microposts %>
+          <%= render @microposts %>
+          <%= will_paginate @microposts %>
       <% else %>
         <h>Follow <%= @user.name %> to see the Microposts</h>
       </ol>
