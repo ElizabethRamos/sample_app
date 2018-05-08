@@ -75,10 +75,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago #sends earlier than 2 hours from change password request
   end
 
-   # Defines a proto-feed.
    # See "following users" for the full implementation.
   def feed
-   Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end 
 
   # Follows a user
